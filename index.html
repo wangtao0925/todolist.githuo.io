@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>AngularJS • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+	</head>
+	<body ng-app="myApp" ng-controller="demoCtrl">
+		<section id="todoapp">
+			<header id="header">
+				<h1>todos</h1>
+				<form id="todo-form" ng-submit="addTask()">
+					<input id="new-todo" placeholder="What needs to be done?" autofocus ng-model="task">
+				</form>
+			</header>
+			<section id="main">
+				<input type="checkbox" id="toggle-all" ng-model="status" ng-click="changeStatus()">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul id="todo-list">
+					<li ng-repeat="task in taskList | filter:{ isCompleted:condition } " ng-class="{'completed': task.isCompleted , 'editing': task.isEdit }">
+						<div class="view">
+							<input class="toggle" type="checkbox" ng-model="task.isCompleted" ng-change="alterStatus()">
+							<label ng-bind="task.name" ng-dblclick="modifyName(task.id)"></label>
+							<button class="destroy" ng-click="deleteTask(task.id)"></button>
+						</div>
+						<form>
+							<input class="edit" ng-model="task.name" ng-blur="leaveInp()">
+						</form>
+					</li>
+				</ul>
+			</section>
+			<footer id="footer">
+				<span id="todo-count">
+					<strong> {{ calcNumber() }} </strong>&nbsp;items left
+				</span>
+				<ul id="filters">
+					<li>
+						<a ng-click="filterData('All')" href="javascript:;">All</a>
+					</li>
+					<li>
+						<a ng-click="filterData('Active')" href="javascript:;">Active</a>
+					</li>
+					<li>
+						<a ng-click="filterData('Completed')" href="javascript:;">Completed</a>
+					</li>
+				</ul>
+				<button id="clear-completed" ng-click="clearAlready()">Clear completed</button>
+			</footer>
+		</section>
+	</body>
+	<script src="node_modules/angular/angular.js"></script>
+	<script src="js/app.js"></script>
+</html>
+
+<!--
+	
+	1.引包
+	2.创建应用的主模块(入口模块)
+	3.告诉angular用当前我创建的模块去管理页面
+	4.创建控制器 写业务逻辑
+	5.告诉angular页面由哪一个控制器去控制
+	6.获取数据并展示到页面中
+	7.添加任务
+	8.删除单个任务
+	9.更改任务状态
+	10.记录有多少任务没有完成
+	11.实现任务的过滤功能
+	12.清除已完成任务
+	13.批量更改任务状态
+	14.更改任务名称
+	
+-->
